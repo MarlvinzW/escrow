@@ -1,0 +1,102 @@
+# ===============================
+# = DATA SOURCE / JPA / HIBERNATE
+# ===============================
+
+spring:
+  application:
+    name: escrow
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: update
+        show_sql: true
+
+    open-in-view: false
+
+  datasource:
+    tomcat:
+      test-while-idle: true
+    url: jdbc:postgresql://localhost:5432/escrow
+    username: marlvin
+    password: marlvin123
+
+# ===============================
+# = APPLICATION / ERROR HANDLING
+# ===============================
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+  port: 8082
+
+info:
+  app:
+    name: Escrow API
+    description: Escrow API
+    version: 1.0
+    basePackage: zw.dreamhub
+  contact:
+    name: Marlvin Chihota
+    url: https://www.marlvinzw.me
+    email: hello@marlvinzw.me
+
+# ===============================
+# = ACTUATOR
+# ===============================
+management:
+  endpoint:
+    auditevents:
+      enabled: true
+    loggers:
+      enabled: true
+    metrics:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      group:
+        8dh:
+          show-components: always
+          show-details: always
+          include:
+            - diskSpace
+            - ping
+            - readinessProbe
+            - info
+      show-details: always
+
+
+app:
+  application:
+    defaultAppName: Escrow API
+    roles:
+      user: USER
+  security:
+    password:
+      salt: zw.dreamhub.escrow
+      saltChars: ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
+    jwt:
+      secret: zw.dreamhub.escrow.demo
+      jwtExpirationMs: 64800000
+      jwtRefreshExpirationMs: 2592000000
+  url:
+    unSecured: /api/v1/public
+    secured: /api/v1
+
+    # ==========================================
+    # SPRING DOC
+    # ==========================================
+
+springdoc:
+  show-actuator: true
+
+  # ==========================================
+  # ZALANDO LOGGING
+  # ==========================================
+
+logging:
+  level:
+    org.zalando.logbook: TRACE

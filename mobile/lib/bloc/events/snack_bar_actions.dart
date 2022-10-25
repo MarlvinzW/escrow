@@ -1,0 +1,1 @@
+enum SnackBarActions { success, error }
